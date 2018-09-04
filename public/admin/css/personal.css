@@ -1,0 +1,53 @@
+
+
+/* ====== NAVBAR ======*/
+
+.img-logo{
+    height: 51px;
+    width: 220px;
+    display: block;
+    background: url("../img/img-sys/logo_spartacus_branca.svg") no-repeat;
+    background-size: contain;
+    color: transparent;
+}
+
+.navbar-transparent{
+    padding: 26px 0px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+}
+
+.navbar-brand{
+    padding: 0px 0px;
+}
+
+.divisor{
+    width: 1px;
+    height: 18px;
+    background: white;
+    margin: 15px 10px;
+}
+
+.navbar-bg{
+    background: #FEC810;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #f9c500;
+}
+
+
+/* ====== SLIDES ======*/
+
+.img-logo-slide{
+    height: 101px;
+    width: 270px;
+    display: block;
+    background: url("../img/logo_branca.png") no-repeat;
+    background-size: contain;
+}
+
+/* ====== TIPOGRAFIA ======*/
