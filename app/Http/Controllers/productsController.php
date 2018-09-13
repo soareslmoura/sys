@@ -73,6 +73,17 @@ class productsController extends Controller
             return json_encode($prods);
         }
 
+    //---------------------------------------------------------------------------
+    // Carregar APENAS produtos que são treinamento e por determinada categoria
+    //---------------------------------------------------------------------------
+
+        public function getProduts()
+        {
+            $prods = products::all();
+            return $prods;
+
+        }
+
 
 
 }

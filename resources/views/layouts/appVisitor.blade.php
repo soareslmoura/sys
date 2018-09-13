@@ -29,6 +29,12 @@
     </button>
     <div class="collapse navbar-collapse"  id="navbarResponsive" >
         <ul class="navbar-nav navbar-sidenav"  id="exampleAccordion"  style="padding-top: 50px">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                <a class="nav-link" href="/visitante" >
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="nav-link-text">Home</span>
+                </a>
+            </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Usuários">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#usuarios" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fas fa-tv"></i>
@@ -59,10 +65,12 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseMulti">
                     <li>
-                        <a href="#">Meus Dados</a>
+                        @if(\Illuminate\Support\Facades\Session::has('idUser'))
+                            <a href="/visitor/dadosVisitante/{{\Illuminate\Support\Facades\Session::get('idUser')}}">Meus Dados</a>
+                        @endif
                     </li>
                     <li>
-                        <a href="#">Planos</a>
+                        <a href="/visitor/plans">Planos</a>
                     </li>
                 </ul>
             </li>
@@ -207,7 +215,25 @@
     <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="/admin/js/sb-admin.min.js"></script>
+    <script src="{{asset('/personal/visitors.js')}}"></script>
+    <script src="/vendor/mask/jquery.mask.min.js"></script>
 </div>
 </body>
+
+<script>
+    $(document).ready(function(){
+        $('.date').mask('11/11/1111');
+        $('.time').mask('00:00:00');
+        $('.date_time').mask('00/00/0000 00:00:00');
+        $('.cep').mask('00000-000');
+        $('.phone').mask('00 0000-0000');
+        $('.phone_with_ddd').mask('(00) 00000-0000');
+        $('.phone_us').mask('(000) 000-0000');
+        $('.mixed').mask('AAA 000-S0S');
+        $('.cpf').mask('000.000.000-00', {reverse: true});
+        $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    });
+
+</script>
 
 </html>

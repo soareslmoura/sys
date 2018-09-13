@@ -41,16 +41,24 @@ class generalsController extends Controller
                 return $num;
             }
     //========================================================================================
-        // RETIRAR PONTOS DO NÚMERO
+        // VALORES MONETÁRIOS NO PADRÃO SQL
 
             public static function numberWithoutPoints($number)
             {
                 $valor = str_replace("." , "" , $number); // Primeiro tira os pontos
-                $valor = str_replace("," , "." , $valor); // Primeiro tira os pontos
+                $valor = str_replace("," , "." , $valor); // Agora tira as virgulas
 
                 return $valor;
 
             }
+
+    //========================================================================================
+    // VALORES MONETÁRIOS NO PADRÃO BRASILEIRO
+            public static function numberBrazilianModel($num)
+            {
+                return number_format($num, 2, ',', '.'); // retorna R$100.000,50
+            }
+
 
     //========================================================================================
     // RETIRAR BARRAS DA DATA
@@ -73,6 +81,32 @@ class generalsController extends Controller
             {
                 return implode("/",array_reverse(explode("-",$date)));
             }
+
+    //========================================================================================
+    // FUNÇÃO PARA CRIAR MASCARAS
+
+            public static function mask($val, $mask)
+            {
+                $maskared = '';
+                $k = 0;
+                for($i = 0; $i<=strlen($mask)-1; $i++)
+                {
+                    if($mask[$i] == '#')
+                    {
+                        if(isset($val[$k])) {
+                            $maskared .= $val[$k++];
+                        }
+                    }
+                    else
+                    {
+                        if(isset($mask[$i])) {
+                            $maskared .= $mask[$i];
+                        }
+                    }
+                }
+                return $maskared;
+            }
+
 
 
 

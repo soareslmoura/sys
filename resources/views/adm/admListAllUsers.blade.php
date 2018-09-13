@@ -59,7 +59,7 @@
                             <td>
                                 <a style='margin-right: 10px' href='/adm/users/{{$user->id}}'  title='Editar'><i class='fas fa-edit'></i></a>
                                 <a style='margin-right: 10px; border: none;' onclick="ModaldeleteUser({{$user->id}})" href="" data-target="#modalDeleteUser" title='Excluir' data-toggle='modal'><i style='color: red' class='fas fa-trash-alt'></i></a>
-                                <a style='margin-right: 10px; border: none;' onclick="showAvaliableTrainings({{$user->id}})" href=""  title='Matricular' data-toggle='modal'><i style='color: #28a745' class='fas fa-pencil-ruler'></i></a>
+                                <a style='margin-right: 10px; border: none;'  href="/adm/training/openTrainings"  title='Matricular' ><i style='color: #28a745' class='fas fa-pencil-ruler'></i></a>
                                 <a style='margin-right: 10px; border: none;' onclick="({{$user->id}})"  title='Histórico' data-toggle='modal'><i style='color: #0062cc' class='fas fa-clipboard-list'></i></a>
                             </td>
                         </tr>

@@ -18,20 +18,20 @@
         Route::post('/visitor/create','usuariosController@createVisitorAccount');
         Route::post('/user/login','usuariosController@login');
         Route::get('/visitor/logout','usuariosController@visitorLogout');
-        Route::get('/visitor/freetraning','usuariosController@freetraning');
+        Route::get('/visitor/freetraning','visitorsController@freetraning');
+        Route::get('/visitor/plans','trainingsController@showViewbuyPlan');
+        Route::get('/visitor/treinamento','visitorsController@viewPlans');
+        Route::get('/visitor/dadosVisitante/{id}','visitorsController@viewEditVisitor');
 
 
-        Route::get('/visitante', 'visitorsController@indexVisitor');
+        Route::get('/visitante', 'visitorsController@indexVisitor')->name('visitante');
 
         /* -------------- ROTAS STUDENT -------------------*/
         Route::get('/std', 'studentsController@indexStudent');
         Route::get('/std/logout','usuariosController@visitorLogout');
 
 
-
-
-
-    /* -------------- ROTAS ADMIN -------------------*/
+         /* -------------- ROTAS ADMIN -------------------*/
 
         // Login ADM
         Route::get('/adm', 'admController@index');
@@ -100,6 +100,7 @@
             // Adicionar Nova Categoria
             Route::post('/adm/category','categoriesController@newCategory');
 
+    //-------------------------------------------------------------------------------------
+    /* -------------- ROTAS ADMIN - Matricular Usuário -------------------*/
 
-
-           // Route::get('/adm/training/openTrainings', 'trainingsController@allOpenTrainings');
+        Route::get('/adm/training/openTrainings', 'trainingsController@allOpenTrainings');

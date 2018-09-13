@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\classes;
 use App\trainings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class trainingsController extends Controller
@@ -27,6 +29,7 @@ class trainingsController extends Controller
                 $tr->vacancies = $request->input('seatTraining');
                 $tr->nameTraining = $name;
                 $tr->situation = 1;
+                $tr->products_id = $request->input('typeTraining');;
 
                 $tr->save();
 
@@ -50,13 +53,17 @@ class trainingsController extends Controller
                 return view('/adm/admListTraining', compact('trainings'));
             }
 
+
             public function allOpenTrainings()
             {
 
-                $trainings = trainings::where('situation','=','1')->get();
-                //$trainings = trainings::all();
+                $trainings = DB::table('trainings')
+                            ->join('products','products_id', '=', 'products.id')
+                            ->select('trainings.*', 'products.*')
+                            ->where('trainings.situation', '=', 1)
+                            ->get();
 
-                return $trainings->toJson();
+                return json_encode($trainings);
 
             }
 
@@ -77,4 +84,56 @@ class trainingsController extends Controller
 
                 return json_encode($data);
             }
+
+    //---------------------------------------------------------------------------
+    // Efetivar Matrícula
+    //---------------------------------------------------------------------------
+
+        //Efetuar matricula - ADM
+        public function admEnrollStudent(Request $request)
+        {
+
+        }
+
+        //Efetuar matricula - VISITANTE
+        public function visitorEnrollStudent(Request $request)
+        {
+
+        }
+
+    //==================================================================================================
+    // CURSO FREE - COMPRAR PLANOS VISITANTE
+    //==================================================================================================
+
+    //---------------------------------------------------------------------------------
+    //Rota pra view de planos
+    public function showViewBuyPlan()
+    {
+        if(!Session::has('check'))
+        {
+            return redirect('/');
+        }
+
+        if(Session::get('isStudent') == 1)
+        {
+            return redirect('/std');
+        }
+        $tr = new trainingsController();
+        $trainings = $tr->allOpenTrainings();
+
+        return view('visitor/visitorEnrollTraining', compact('trainings'));
+    }
+
+
+    //Verificar Quantidade de alunos na turma
+    public function qntyStudents($idClass)
+    {
+        $class = new classes();
+        $res = $class->all()->where('trainings_id','=', $idClass);
+
+        return count($res);
+    }
+
+
+
 }

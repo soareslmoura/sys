@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\checkLogin;
 use App\Mail\mailRecoverPass;
+use App\products;
 use App\usuarios;
 use App\visitors;
 use Illuminate\Support\Facades\Mail;
@@ -14,20 +16,13 @@ use Illuminate\Support\Facades\DB;
 class usuariosController extends Controller
 {
 
-    public function checkLoginVisitor()
-    {
-        if(!(Session::has('check')) &&(Session::get('isStudent') == 0))
-        {
-            return redirect('/');
-        }
-    }
-
     public function indexSite()
     {
 
         if((Session::has('check')) &&(Session::get('isStudent') == 0))
         {
             return redirect('/visitante');
+
         }elseif(Session::get('isStudent') == 1)
         {
             return redirect('/std');
@@ -85,8 +80,9 @@ class usuariosController extends Controller
                 return view('index', compact('erroDb'));
             }
 
+
             $request->session()->put('check','yes');
-            $request->session()->put('idUser',$user->idUser);
+            $request->session()->put('idUser',$user->id);
             $request->session()->put('nameUser',$user->nameUser);
             $request->session()->put('isStudent',$user->visitor->isStudent);
 
@@ -150,19 +146,9 @@ class usuariosController extends Controller
             return redirect('/');
         }
 
-    //==================================================================================================
-    // CURSO FREE - VISITANTE
-    //==================================================================================================
 
-        //---------------------------------------------------------------------------------
-        //Rota pro curso free
 
-        public function freetraning()
-        {
-            $this->checkLoginVisitor();
 
-            return view('visitor/visitorTraning');
-        }
 
     //==================================================================================================
     // RECUPERAR SENHA - USUARIO
@@ -231,13 +217,6 @@ class usuariosController extends Controller
             return view('/adm/admListAllUsers', compact('users'));
         }
 
-        /*Todos os usuarios
-        public function allUsers()
-        {
-            $users = usuarios::where('deleted',0)->get();
-            return json_encode($users);
-        }
-        */
 
         // Criar novo usuário pelo admin
 
@@ -358,7 +337,6 @@ class usuariosController extends Controller
         $msgcreate = "Usuário não encontrado.";
         $typealert = "alert-danger";
         return redirect()->route('allusers')->with(['msgcreate' => $msgcreate, 'typealert' => $typealert]);
-
 
     }
 

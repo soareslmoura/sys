@@ -62,7 +62,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
     Route::get('/adm/training/{id}','trainingsController@getTraining');
 
-    Route::get('/adm/training/{data}','trainingsController@dateBrazilian');
+    Route::get('/adm/training/date/{data}','trainingsController@dateBrazilian');
 
     // Todos os Treinamentos
     Route::get('/adm/training/openTrainings','trainingsController@allOpenTrainings');
+    // Quantidade de alunos na turma
+    Route::get('/adm/training/qtystudents/{id}','trainingsController@qntyStudents');
